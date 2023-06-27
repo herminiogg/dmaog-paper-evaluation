@@ -1,0 +1,11 @@
+doctype html
+html(lang="en")
+    head
+        link(rel='stylesheet', href='/stylesheets/list.css')
+    body
+        h1 Films
+
+        div
+            ul
+                each val in data
+                    li= val.subject.value + " -> " + val.predicate.value + " -> " + val.object.value

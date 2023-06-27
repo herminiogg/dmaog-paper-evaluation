@@ -1,0 +1,86 @@
+openapi: 3.0.2
+info:
+  title: 'Example site'
+  version: 0.1.0
+x-walder-resources:
+  root: ./
+  views: views
+  pipe-modules: pipeModules
+  public: public
+x-walder-datasources:
+  - http://localhost:3030/films/sparql
+paths:
+  /film:
+    get:
+      summary: Returns all films
+      x-walder-query:
+        graphql-query: >
+          {
+            id @single
+            name
+            countryOfOrigin
+            director
+            musicBy
+            screenwritter
+            year
+          }
+        json-ld-context: >
+          {
+            "@context": {
+              "film": "http://schema.org/Movie",
+              "name": "http://schema.org/name",
+              "countryOfOrigin": "http://schema.org/countryOfOrigin",
+              "director": "http://schema.org/director",
+              "musicBy": "http://schema.org/musicBy",
+              "screenwritter": "http://example.com/screenwritter",
+              "year": "http://example.com/year"
+            }
+          }
+      responses:
+        200:
+          description: list of films
+          x-walder-input-text/html: films.pug
+  /film/{name}:
+    get:
+      summary: Returns the film with the given name
+      parameters:
+        - in: path
+          name: name
+          required: true
+          schema:
+            type: string
+          description: "The name of the film"
+      x-walder-query:
+        graphql-query: >
+          {
+            id @single
+            name(_:$name)
+            countryOfOrigin
+            director
+            musicBy
+            screenwritter
+            year
+          }
+        json-ld-context: >
+          {
+            "@context": {
+              "film": "http://schema.org/Movie",
+              "name": "http://schema.org/name",
+              "countryOfOrigin": "http://schema.org/countryOfOrigin",
+              "director": "http://schema.org/director",
+              "musicBy": "http://schema.org/musicBy",
+              "screenwritter": "http://example.com/screenwritter",
+              "year": "http://example.com/year"
+            }
+          }
+      responses:
+        200:
+          description: list of films
+          x-walder-input-text/html: films.pug
+x-walder-errors:
+  404:
+    description: page not found error
+    x-walder-input-text/html: error404.html
+  500:
+    description: internal server error
+    x-walder-input-text/html: error500.html

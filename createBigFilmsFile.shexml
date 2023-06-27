@@ -1,0 +1,33 @@
+PREFIX : <http://example.com/>
+PREFIX dbr: <http://dbpedia.org/resource/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wd: <http://www.wikidata.org/entity/>
+
+QUERY big_films_query <file:///C:/Users/Herminio/Desktop/ExamplesDMAOGPaper/wikidataFilms.sparql>
+SOURCE wikidata <https://query.wikidata.org/sparql>
+
+ITERATOR film_iterator <big_films_query> {
+    FIELD id <id>
+    FIELD name <name>
+    FIELD year <year>
+    FIELD country <country>
+    FIELD director <director>
+    FIELD screenwriter <screenwriter>
+    FIELD music <music>
+    FIELD photography <photography>
+}
+
+EXPRESSION films <wikidata.film_iterator>
+
+:Films :[films.id] {
+  	a schema:Movie ;
+    schema:name [films.name] ;
+    :year [films.year] xsd:dateTimeStamp ;
+    schema:countryOfOrigin wd:[films.country] ;
+    schema:director wd:[films.director] ;
+    :screenwritter wd:[films.screenwriter] ;
+    schema:musicBy wd:[films.music] ;
+    :cinematographer wd:[films.photography] ;
+}

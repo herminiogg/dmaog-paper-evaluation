@@ -1,0 +1,15 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX : <http://example.com/>
+PREFIX dbr: <http://dbpedia.org/resource/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+:Films {
+	schema:name xsd:string  ;
+	:year xsd:string  ;
+	schema:countryOfOrigin xsd:string   ;
+	schema:director xsd:string   ;
+	:screenwritter xsd:string  + ;
+	schema:musicBy xsd:string  ;
+	:cinematographer xsd:string   ;
+}

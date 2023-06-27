@@ -1,0 +1,51 @@
+openapi: 3.0.2
+info:
+  title: 'Example site'
+  version: 0.1.0
+x-walder-resources:
+  root: ./
+  views: views
+  pipe-modules: pipeModules
+  public: public
+x-walder-datasources:
+  - http://localhost:3030/films/sparql
+paths:
+  /:
+    get:
+      summary: Returns all films
+      x-walder-query:
+        sparql-query: >
+          PREFIX :      <http://example.com/>
+          PREFIX schema: <http://schema.org/> 
+          PREFIX dbr:   <http://dbpedia.org/resource/> 
+
+          CONSTRUCT {
+            ?film a schema:Movie ;
+              schema:name ?name ;
+              :year ?year ;
+              schema:countryOfOrigin ?country ;
+              schema:director ?director ;
+              :screenwritter ?screenwritters ;
+              schema:musicBy ?music ;
+              :cinematographer ?photography .
+          } WHERE {
+            ?film a schema:Movie ;
+              schema:name ?name ;
+              :year ?year ;
+              schema:countryOfOrigin ?country ;
+              schema:director ?director ;
+              :screenwritter ?screenwritters ;
+              schema:musicBy ?music .
+            OPTIONAL {?film :cinematographer ?photography .}
+          }
+      responses:
+        200:
+          description: list of films
+          x-walder-input-text/html: films-sparql.pug
+x-walder-errors:
+  404:
+    description: page not found error
+    x-walder-input-text/html: error404.html
+  500:
+    description: internal server error
+    x-walder-input-text/html: error500.html

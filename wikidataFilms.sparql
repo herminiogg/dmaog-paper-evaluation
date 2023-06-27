@@ -1,0 +1,16 @@
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?id ?name ?year ?country ?director ?screenwriter ?music ?photography 
+WHERE {
+  ?id wdt:P31 wd:Q11424 ;
+      rdfs:label ?name ;
+      wdt:P577 ?year ;
+      wdt:P495 ?country ;
+      wdt:P57 ?director ;
+      wdt:P58 ?screenwriter ;
+      wdt:P5028 ?music ;
+      wdt:P344 ?photography 
+  FILTER(langMatches(lang(?name),"en") && isLiteral(?year))
+} ORDER BY (?year) LIMIT 10000

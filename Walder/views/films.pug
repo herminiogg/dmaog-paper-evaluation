@@ -1,0 +1,10 @@
+doctype html
+html(lang="en")
+    head
+        link(rel='stylesheet', href='/stylesheets/list.css')
+    body
+        h1 Films
+        div
+            ul
+                each val in data
+                    li= val.id + ", " + val.name + ", " + val.year + ", " + val.countryOfOrigin + ", " + val.director + ", " + val.musicBy

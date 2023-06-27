@@ -1,0 +1,4 @@
+{
+"generationDate":1687769710170,
+"classes":[
+{"className":"Films","attributes":[{"attributeName":"name","attributeType":"String"},{"attributeName":"year","attributeType":"String"},{"attributeName":"countryoforigin","attributeType":"String"},{"attributeName":"director","attributeType":"String"},{"attributeName":"screenwritter","attributeType":"List<String>"},{"attributeName":"musicby","attributeType":"String"},{"attributeName":"cinematographer","attributeType":"String"}]}]}
