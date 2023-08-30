@@ -3,6 +3,7 @@ title: "DMAOG performance evaluation"
 author: "Herminio García-González"
 date: "2023-08-28"
 output: 
+  html_document: default
   md_document:
     variant: markdown_github
 ---
@@ -78,7 +79,7 @@ Results for "All items" method:
 dunnTest(All_items ~ Software, data = dataset, method = "bh")
 ```
 
-In the case of the "All items" method we can see that there are very significant differences (p < 0.001) between DMAOG and LD-Flex, between DMAOG and RDF4J-Beans, between LD-flex and RDF4J-Beans, and between LD-flex and Walder. Also there are significant differences (p < 0.05) between RDF4J-Beans and Walder and between DMAOG and Walder. In addition we can calculate the effect size to see how strong is the seen relation:
+In the case of the "All items" method we can see that there are very significant differences (p < 0.001) between DMAOG and LDflex, between DMAOG and RDF4J-Beans, between LDflex and RDF4J-Beans, and between LDflex and Walder. Also there are significant differences (p < 0.05) between RDF4J-Beans and Walder and between DMAOG and Walder. In addition we can calculate the effect size to see how strong is the seen relation:
 
 ```{r, echo=FALSE}
 library(rstatix)
@@ -90,7 +91,7 @@ d_all_items$r <- d_all_items$statistic / sqrt(d_all_items$n1+d_all_items$n2)
 d_all_items[, c(1,2,3,10)]
 ```
 
-As we can see from the previous results the effect size is large as per Cohen suggested values of effect size for r. Therefore, we can ensure that DMAOG is faster than LD-flex, and RDF4J-Beans, and Walder is faster than LD-flex. However, while we can ensure that DMAOG is faster than Walder, Walder is faster than RDF4J-Beans and RDF4J-Beans is faster than LD-flex these relations have a medium effect size so the difference is less strong than in the other cases.
+As we can see from the previous results the effect size is large as per Cohen suggested values of effect size for r. Therefore, we can ensure that DMAOG is faster than LDflex, and RDF4J-Beans, and Walder is faster than LDflex. However, while we can ensure that DMAOG is faster than Walder, Walder is faster than RDF4J-Beans and RDF4J-Beans is faster than LDflex these relations have a medium effect size so the difference is less strong than in the other cases.
 
 Results for "Search by fields" method:
 
@@ -98,7 +99,7 @@ Results for "Search by fields" method:
 dunnTest(Search_by_fields ~ Software, data = dataset, method = "bh")
 ```
 
-In this case there are very significant differences between DMAOG and RDF4J-Beans, RDF4J-Beans and Walder, between LD-flex and Walder, and between DMAOG and LD-flex. There are significant differences between LD-flex and RDF4J-Beans and between DMAOG and Walder. Calculating the effect size:
+In this case there are very significant differences between DMAOG and RDF4J-Beans, RDF4J-Beans and Walder, between LDflex and Walder, and between DMAOG and LDflex. There are significant differences between LDflex and RDF4J-Beans and between DMAOG and Walder. Calculating the effect size:
 
 ```{r}
 d_search_by_fields <- dunn_test(Search_by_fields ~ Software, data = dataset, p.adjust.method = "BH")
@@ -106,23 +107,23 @@ d_search_by_fields$r <- d_search_by_fields$statistic / sqrt(d_search_by_fields$n
 d_search_by_fields[, c(1,2,3,10)]
 ```
 
-We can see that pairing the previously obtained significance values there are large effect sizes between DMAOG and RDF4J-Beans (DMAOG is faster), between RDF4J-Beans and Walder (Walder is faster) and between LD-flex and Walder (Walder is faster). We see medium size effects between DMAOG and LD-flex (being DMAOG faster) between LD-flex and RDF4J-Beans (being LD-flex faster), and between DMAOG and Walder (being in this case Walder faster).
+We can see that pairing the previously obtained significance values there are large effect sizes between DMAOG and RDF4J-Beans (DMAOG is faster), between RDF4J-Beans and Walder (Walder is faster) and between LDflex and Walder (Walder is faster). We see medium size effects between DMAOG and LDflex (being DMAOG faster) between LDflex and RDF4J-Beans (being LDflex faster), and between DMAOG and Walder (being in this case Walder faster).
 
 So we can corroborate that the previously observed differences and performance classification are statistically valid, so we can classify their performance depending on the used method:
 
-All items: DMAOG, Walder, RDF4J-Beans, LD-flex
-Search by fields: Walder, DMAOG, LD-flex and RDF4J-Beans
+All items: DMAOG, Walder, RDF4J-Beans, LDflex
+Search by fields: Walder, DMAOG, LDflex and RDF4J-Beans
 
 # Visualising the differences
 
 We then can visualise these differences in a box plot where the differences can be become more evident. For that we are going to analyse the tools that interchange their position in best performance between the two tested methods:
 
-RDF4J-Beans and LD-flex:
+RDF4J-Beans and LDflex:
 ```{r}
 boxplot(
   filter(dataset, Software == "RDF4J-Beans")$All_items, 
-  filter(dataset, Software == "LD-flex")$All_items, 
-  names=c("RDF4J-Beans - All items", "LD-flex - All items"),
+  filter(dataset, Software == "LDflex")$All_items, 
+  names=c("RDF4J-Beans - All items", "LDflex - All items"),
   notch=TRUE,
   col=c("yellow", "orange"))
 ```
@@ -130,8 +131,8 @@ boxplot(
 ```{r}
 boxplot(
   filter(dataset, Software == "RDF4J-Beans")$Search_by_fields, 
-  filter(dataset, Software == "LD-flex")$Search_by_fields,
-  names=c("RDF4J-Beans - Search by field", "LD-flex - Search by field"),
+  filter(dataset, Software == "LDflex")$Search_by_fields,
+  names=c("RDF4J-Beans - Search by field", "LDflex - Search by field"),
   notch=TRUE,
   col=c("yellow", "orange"))
 ```

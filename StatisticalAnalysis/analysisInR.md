@@ -31,7 +31,7 @@ stby(dataset, dataset$Software, descr, round.digits=5, stats=c("mean", "sd", "mi
     ##           Min   191.53000           34.77000
     ##           Max   319.83000           45.89000
     ## 
-    ## Group: Software = LD-flex  
+    ## Group: Software = LDflex  
     ## N: 30  
     ## 
     ##                    All_items   Search_by_fields
@@ -82,7 +82,7 @@ by(dataset$All_items, dataset$Software, shapiro.test)
     ## W = 0.7735, p-value = 2.236e-05
     ## 
     ## ------------------------------------------------------------ 
-    ## dataset$Software: LD-flex
+    ## dataset$Software: LDflex
     ## 
     ##  Shapiro-Wilk normality test
     ## 
@@ -119,7 +119,7 @@ by(dataset$Search_by_fields, dataset$Software, shapiro.test)
     ## W = 0.96491, p-value = 0.4107
     ## 
     ## ------------------------------------------------------------ 
-    ## dataset$Software: LD-flex
+    ## dataset$Software: LDflex
     ## 
     ##  Shapiro-Wilk normality test
     ## 
@@ -209,18 +209,18 @@ dunnTest(All_items ~ Software, data = dataset, method = "bh")
 
     ##   p-values adjusted with the Benjamini-Hochberg method.
 
-    ##              Comparison          Z      P.unadj        P.adj
-    ## 1       DMAOG - LD-flex -10.020657 1.236777e-23 7.420663e-23
-    ## 2   DMAOG - RDF4J-Beans  -6.680438 2.382289e-11 4.764578e-11
-    ## 3 LD-flex - RDF4J-Beans   3.340219 8.371232e-04 8.371232e-04
-    ## 4        DMAOG - Walder  -3.340219 8.371232e-04 1.004548e-03
-    ## 5      LD-flex - Walder   6.680438 2.382289e-11 7.146866e-11
-    ## 6  RDF4J-Beans - Walder   3.340219 8.371232e-04 1.255685e-03
+    ##             Comparison          Z      P.unadj        P.adj
+    ## 1       DMAOG - LDflex -10.020657 1.236777e-23 7.420663e-23
+    ## 2  DMAOG - RDF4J-Beans  -6.680438 2.382289e-11 4.764578e-11
+    ## 3 LDflex - RDF4J-Beans   3.340219 8.371232e-04 8.371232e-04
+    ## 4       DMAOG - Walder  -3.340219 8.371232e-04 1.004548e-03
+    ## 5      LDflex - Walder   6.680438 2.382289e-11 7.146866e-11
+    ## 6 RDF4J-Beans - Walder   3.340219 8.371232e-04 1.255685e-03
 
 In the case of the “All items” method we can see that there are very
-significant differences (p \< 0.001) between DMAOG and LD-Flex, between
-DMAOG and RDF4J-Beans, between LD-flex and RDF4J-Beans, and between
-LD-flex and Walder. Also there are significant differences (p \< 0.05)
+significant differences (p \< 0.001) between DMAOG and LDflex, between
+DMAOG and RDF4J-Beans, between LDflex and RDF4J-Beans, and between
+LDflex and Walder. Also there are significant differences (p \< 0.05)
 between RDF4J-Beans and Walder and between DMAOG and Walder. In addition
 we can calculate the effect size to see how strong is the seen relation:
 
@@ -245,19 +245,19 @@ d_all_items[, c(1,2,3,10)]
     ## # A tibble: 6 × 4
     ##   .y.       group1      group2           r
     ##   <chr>     <chr>       <chr>        <dbl>
-    ## 1 All_items DMAOG       LD-flex      1.29 
+    ## 1 All_items DMAOG       LDflex       1.29 
     ## 2 All_items DMAOG       RDF4J-Beans  0.862
     ## 3 All_items DMAOG       Walder       0.431
-    ## 4 All_items LD-flex     RDF4J-Beans -0.431
-    ## 5 All_items LD-flex     Walder      -0.862
+    ## 4 All_items LDflex      RDF4J-Beans -0.431
+    ## 5 All_items LDflex      Walder      -0.862
     ## 6 All_items RDF4J-Beans Walder      -0.431
 
 As we can see from the previous results the effect size is large as per
 Cohen suggested values of effect size for r. Therefore, we can ensure
-that DMAOG is faster than LD-flex, and RDF4J-Beans, and Walder is faster
-than LD-flex. However, while we can ensure that DMAOG is faster than
+that DMAOG is faster than LDflex, and RDF4J-Beans, and Walder is faster
+than LDflex. However, while we can ensure that DMAOG is faster than
 Walder, Walder is faster than RDF4J-Beans and RDF4J-Beans is faster than
-LD-flex these relations have a medium effect size so the difference is
+LDflex these relations have a medium effect size so the difference is
 less strong than in the other cases.
 
 Results for “Search by fields” method:
@@ -272,18 +272,18 @@ dunnTest(Search_by_fields ~ Software, data = dataset, method = "bh")
 
     ##   p-values adjusted with the Benjamini-Hochberg method.
 
-    ##              Comparison         Z      P.unadj        P.adj
-    ## 1       DMAOG - LD-flex -3.340219 8.371232e-04 8.371232e-04
-    ## 2   DMAOG - RDF4J-Beans -6.680438 2.382289e-11 4.764578e-11
-    ## 3 LD-flex - RDF4J-Beans -3.340219 8.371232e-04 1.004548e-03
-    ## 4        DMAOG - Walder  3.340219 8.371232e-04 1.255685e-03
-    ## 5      LD-flex - Walder  6.680438 2.382289e-11 7.146866e-11
-    ## 6  RDF4J-Beans - Walder 10.020657 1.236777e-23 7.420663e-23
+    ##             Comparison         Z      P.unadj        P.adj
+    ## 1       DMAOG - LDflex -3.340219 8.371232e-04 8.371232e-04
+    ## 2  DMAOG - RDF4J-Beans -6.680438 2.382289e-11 4.764578e-11
+    ## 3 LDflex - RDF4J-Beans -3.340219 8.371232e-04 1.004548e-03
+    ## 4       DMAOG - Walder  3.340219 8.371232e-04 1.255685e-03
+    ## 5      LDflex - Walder  6.680438 2.382289e-11 7.146866e-11
+    ## 6 RDF4J-Beans - Walder 10.020657 1.236777e-23 7.420663e-23
 
 In this case there are very significant differences between DMAOG and
-RDF4J-Beans, RDF4J-Beans and Walder, between LD-flex and Walder, and
-between DMAOG and LD-flex. There are significant differences between
-LD-flex and RDF4J-Beans and between DMAOG and Walder. Calculating the
+RDF4J-Beans, RDF4J-Beans and Walder, between LDflex and Walder, and
+between DMAOG and LDflex. There are significant differences between
+LDflex and RDF4J-Beans and between DMAOG and Walder. Calculating the
 effect size:
 
 ``` r
@@ -295,27 +295,27 @@ d_search_by_fields[, c(1,2,3,10)]
     ## # A tibble: 6 × 4
     ##   .y.              group1      group2           r
     ##   <chr>            <chr>       <chr>        <dbl>
-    ## 1 Search_by_fields DMAOG       LD-flex      0.431
+    ## 1 Search_by_fields DMAOG       LDflex       0.431
     ## 2 Search_by_fields DMAOG       RDF4J-Beans  0.862
     ## 3 Search_by_fields DMAOG       Walder      -0.431
-    ## 4 Search_by_fields LD-flex     RDF4J-Beans  0.431
-    ## 5 Search_by_fields LD-flex     Walder      -0.862
+    ## 4 Search_by_fields LDflex      RDF4J-Beans  0.431
+    ## 5 Search_by_fields LDflex      Walder      -0.862
     ## 6 Search_by_fields RDF4J-Beans Walder      -1.29
 
 We can see that pairing the previously obtained significance values
 there are large effect sizes between DMAOG and RDF4J-Beans (DMAOG is
 faster), between RDF4J-Beans and Walder (Walder is faster) and between
-LD-flex and Walder (Walder is faster). We see medium size effects
-between DMAOG and LD-flex (being DMAOG faster) between LD-flex and
-RDF4J-Beans (being LD-flex faster), and between DMAOG and Walder (being
-in this case Walder faster).
+LDflex and Walder (Walder is faster). We see medium size effects between
+DMAOG and LDflex (being DMAOG faster) between LDflex and RDF4J-Beans
+(being LDflex faster), and between DMAOG and Walder (being in this case
+Walder faster).
 
 So we can corroborate that the previously observed differences and
 performance classification are statistically valid, so we can classify
 their performance depending on the used method:
 
-All items: DMAOG, Walder, RDF4J-Beans, LD-flex Search by fields: Walder,
-DMAOG, LD-flex and RDF4J-Beans
+All items: DMAOG, Walder, RDF4J-Beans, LDflex Search by fields: Walder,
+DMAOG, LDflex and RDF4J-Beans
 
 # Visualising the differences
 
@@ -324,13 +324,13 @@ differences can be become more evident. For that we are going to analyse
 the tools that interchange their position in best performance between
 the two tested methods:
 
-RDF4J-Beans and LD-flex:
+RDF4J-Beans and LDflex:
 
 ``` r
 boxplot(
   filter(dataset, Software == "RDF4J-Beans")$All_items, 
-  filter(dataset, Software == "LD-flex")$All_items, 
-  names=c("RDF4J-Beans - All items", "LD-flex - All items"),
+  filter(dataset, Software == "LDflex")$All_items, 
+  names=c("RDF4J-Beans - All items", "LDflex - All items"),
   notch=TRUE,
   col=c("yellow", "orange"))
 ```
@@ -343,8 +343,8 @@ boxplot(
 ``` r
 boxplot(
   filter(dataset, Software == "RDF4J-Beans")$Search_by_fields, 
-  filter(dataset, Software == "LD-flex")$Search_by_fields,
-  names=c("RDF4J-Beans - Search by field", "LD-flex - Search by field"),
+  filter(dataset, Software == "LDflex")$Search_by_fields,
+  names=c("RDF4J-Beans - Search by field", "LDflex - Search by field"),
   notch=TRUE,
   col=c("yellow", "orange"))
 ```
