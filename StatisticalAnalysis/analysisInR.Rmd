@@ -3,9 +3,9 @@ title: "DMAOG performance evaluation"
 author: "Herminio García-González"
 date: "2023-08-28"
 output: 
-  html_document: default
   md_document:
     variant: markdown_github
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -63,10 +63,6 @@ kruskal.test(Search_by_fields ~ Software, data = dataset)
 ```
 
 In the light of these results we can see that in both cases the null hypothesis is rejected and the significance of this difference can be classified as statistically highly significant with the significance level  p < 0.001.
-
-In addition, we can measure the strength of this difference by measuring the effect size:
-
-TODO
 
 ## Testing differences between groups
 The Kruskal-Wallis tests tells us that there are differences between the four given distributions, however with it we cannot exactly know between which groups are those differences. For this purpouse we need to run a post hoc analysis. In this case we will use the Dunn's Test using the Benjamini-Hochberg procedure. 

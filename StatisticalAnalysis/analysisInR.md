@@ -184,11 +184,6 @@ hypothesis is rejected and the significance of this difference can be
 classified as statistically highly significant with the significance
 level p \< 0.001.
 
-In addition, we can measure the strength of this difference by measuring
-the effect size:
-
-TODO
-
 ## Testing differences between groups
 
 The Kruskal-Wallis tests tells us that there are differences between the
