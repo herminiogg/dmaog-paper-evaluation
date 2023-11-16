@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "ldkit": "^1.1.0",
+    "typescript": "^5.2.2"
+  }
+}
