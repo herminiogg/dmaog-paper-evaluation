@@ -309,7 +309,7 @@ can ensure that:
 -   LDkit is faster than LDflex and RDF4J-Beans and Walder
 
 However, we cannot ensure with the same certainty, due to medium (r \<=
-0.5 and r \> 0.1) or small effect size (r \<= 0.1), that:
+0.5 and r \> 0.3) or small effect size (r \<= 0.3), that:
 
 -   Walder is faster than RDF4J-Beans
 -   RDF4J-Beans is faster than LDflex
@@ -387,7 +387,7 @@ there are large effect sizes (r \> 0.5) between:
 -   LDkit and RDF4J-Beans (LDkit is faster)
 -   LDkit and Walder (Walder is faster)
 
-We see medium size effects (r \<= 0.5 and r \> 0.1) between:
+We see medium size effects (r \<= 0.5 and r \> 0.3) between:
 
 -   LDflex and RDF4J-Beans (being LDflex faster)
 -   DMAOG and Walder (being in this case Walder faster).
