@@ -13,7 +13,7 @@ The data used in the examples is available in the root of this repository:
 * films_modified.ttl: Same entities as in films.ttl but modified not to have predicates with a list of objects (only one per subject and predicate). This is due to a bug in RDF4J-Beans that can be resolved easily as explained later.
 
 ## Usage examples
-All the examples in this section are meant to illustrate how a developer can use these libraries and the amoun of code/configuration needed to set up a minimal project. All examples are designed to do two basic operations:
+All the examples in this section are meant to illustrate how a developer can use these libraries and the amount of code/configuration needed to set up a minimal project. All examples are designed to do two basic operations:
 * Get all films
 * Get films whose name is Dunkirk
 
@@ -91,6 +91,15 @@ $ node main.js
 
 In LDflex the developer does not need to provide any predefined configuration. All the configuration is done directly before the invocation of the library methods.
 
+### LDkit
+To use LDkit inside a TypeScript project it is necessary to install the library in the system as indicated in the [LDkit repository](https://github.com/karelklima/ldkit#-getting-started).
+
+The included example can be launched firstly by compiling it and then running the resulting JavaScript file with Node. It all can be done in a single line with the command below:
+
+```
+$ tsc main.ts && node main.js
+```
+
 ## Performance evaluation
 Under the folder PerformanceTest you can find similar projects to those explained in usage example but designed to measure the performance of each solution: for getting all the films and for getting fields based on their name.
 
@@ -149,4 +158,17 @@ And for evaluating getting the films by name you can use the command below:
 
 ```
 $ node mainSearchFilm.js
+```
+
+### LDflex
+As in the case of LDflex and Walder the evalution of getting all the films and getting the films by name are separated. Therefore for running the evaluation of getting all the films you should use this command that compiles the TypeScript code and then run the resulting JavaScript code:
+
+```
+$ tsc main.ts && node main.js
+```
+
+And for evaluating getting the films by name you can use the command below:
+
+```
+$ tsc mainSearchFilm.ts && node mainSearchFilm.js
 ```
