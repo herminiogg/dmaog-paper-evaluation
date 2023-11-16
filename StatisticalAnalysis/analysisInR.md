@@ -248,11 +248,20 @@ dunnTest(All_items ~ Software, data = dataset, method = "bh")
     ## 10 RDF4J-Beans - Walder  2.6743842 7.486664e-03 9.358330e-03
 
 In the case of the “All items” method we can see that there are very
-significant differences (p \< 0.001) between: \* DMAOG and LDflex \*
-DMAOG and RDF4J-Beans \* DMAOG and Walder \* LDlfex and LDkit \* LDkit
-and RDF4J-Beans \* LDKit and Walder \* LDflex and Walder There are also
-significant differences (p \< 0.05) between: \* RDF4J-Beans and Walder
-\* LDflex and RDF4J-Beans
+significant differences (p \< 0.001) between:
+
+-   DMAOG and LDflex
+-   DMAOG and RDF4J-Beans
+-   DMAOG and Walder
+-   LDlfex and LDkit
+-   LDkit and RDF4J-Beans
+-   LDKit and Walder
+-   LDflex and Walder
+
+There are also significant differences (p \< 0.05) between:
+
+-   RDF4J-Beans and Walder
+-   LDflex and RDF4J-Beans
 
 Interestingly, there are no significant differences between DMAOG and
 LDkit.
@@ -294,12 +303,16 @@ d_all_items[, c(1,2,3,10)]
 
 As we can see from the previous results the effect size is large (r \>
 0.5) as per Cohen suggested values of effect size for r. Therefore, we
-can ensure that: \* DMAOG is faster than LDflex, RDF4J-Beans and Walder
-\* LDkit is faster than LDflex and RDF4J-Beans and Walder
+can ensure that:
+
+-   DMAOG is faster than LDflex, RDF4J-Beans and Walder
+-   LDkit is faster than LDflex and RDF4J-Beans and Walder
 
 However, we cannot ensure with the same certainty, due to medium (r \<=
-0.5 and r \> 0.1) or small effect size (r \<= 0.1), that: \* Walder is
-faster than RDF4J-Beans \* RDF4J-Beans is faster than LDflex
+0.5 and r \> 0.1) or small effect size (r \<= 0.1), that:
+
+-   Walder is faster than RDF4J-Beans
+-   RDF4J-Beans is faster than LDflex
 
 Results for “Search by fields” method:
 
@@ -326,12 +339,21 @@ dunnTest(Search_by_fields ~ Software, data = dataset, method = "bh")
     ## 10 RDF4J-Beans - Walder 10.697537 1.045199e-26 1.045199e-25
 
 In this case there are very significant differences (p \< 0.001)
-between: \* DMAOG and LDflex \* DMAOG and RDF4J-Beans \* LDkit and
-RDF4J-Beans \* RDF4J-Beans and Walder \* LDflex and Walder \* LDkit and
-Walder
+between:
 
-There are significant differences (p \< 0.05) between: \* DMAOG and
-LDkit \* LDflex and LDkit \* LDflex and RDF4J-Beans \* DMAOG and Walder
+-   DMAOG and LDflex
+-   DMAOG and RDF4J-Beans
+-   LDkit and RDF4J-Beans
+-   RDF4J-Beans and Walder
+-   LDflex and Walder
+-   LDkit and Walder
+
+There are significant differences (p \< 0.05) between:
+
+-   DMAOG and LDkit
+-   LDflex and LDkit
+-   LDflex and RDF4J-Beans
+-   DMAOG and Walder
 
 Calculating the effect size:
 
@@ -356,16 +378,21 @@ d_search_by_fields[, c(1,2,3,10)]
     ## 10 Search_by_fields RDF4J-Beans Walder      -1.38
 
 We can see that pairing the previously obtained significance values
-there are large effect sizes (r \> 0.5) between: \* DMAOG and LDflex
-(being DMAOG faster) \* DMAOG and RDF4J-Beans (DMAOG is faster) \*
-RDF4J-Beans and Walder (Walder is faster) \* LDflex and Walder (Walder
-is faster) \* LDkit and RDF4J-Beans (LDkit is faster) \* LDkit and
-Walder (Walder is faster)
+there are large effect sizes (r \> 0.5) between:
 
-We see medium size effects (r \<= 0.5 and r \> 0.1) between: \* LDflex
-and RDF4J-Beans (being LDflex faster) \* DMAOG and Walder (being in this
-case Walder faster). \* DMAOG and LDkit (DMAOG is faster) \* LDflex and
-LDkit (LDkit is faster)
+-   DMAOG and LDflex (being DMAOG faster)
+-   DMAOG and RDF4J-Beans (DMAOG is faster)
+-   RDF4J-Beans and Walder (Walder is faster)
+-   LDflex and Walder (Walder is faster)
+-   LDkit and RDF4J-Beans (LDkit is faster)
+-   LDkit and Walder (Walder is faster)
+
+We see medium size effects (r \<= 0.5 and r \> 0.1) between:
+
+-   LDflex and RDF4J-Beans (being LDflex faster)
+-   DMAOG and Walder (being in this case Walder faster).
+-   DMAOG and LDkit (DMAOG is faster)
+-   LDflex and LDkit (LDkit is faster)
 
 So we can corroborate that the previously observed differences and
 performance classification are statistically valid, so we can classify
