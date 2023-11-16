@@ -10,11 +10,11 @@ dataset <- read.csv("https://raw.githubusercontent.com/herminiogg/dmaog-paper-ev
 ## Descriptive statistics
 
 We obtain the descriptive statistics for each of the tools that we have
-tested. We include in this analysis the mean, the standard deviation the
-minimum and the maximum:
+tested. We include in this analysis the mean, the median, the standard
+deviation the minimum and the maximum:
 
 ``` r
-stby(dataset, dataset$Software, descr, round.digits=5, stats=c("mean", "sd", "min", "max"))
+stby(dataset, dataset$Software, descr, round.digits=5, stats=c("mean", "med", "sd", "min", "max"))
 ```
 
     ## Non-numerical variable(s) ignored: Software
@@ -27,6 +27,7 @@ stby(dataset, dataset$Software, descr, round.digits=5, stats=c("mean", "sd", "mi
     ##                 All_items   Search_by_fields
     ## ------------- ----------- ------------------
     ##          Mean   286.37433           40.32700
+    ##        Median   295.98500           40.26500
     ##       Std.Dev    32.84225            3.24248
     ##           Min   191.53000           34.77000
     ##           Max   319.83000           45.89000
@@ -37,9 +38,21 @@ stby(dataset, dataset$Software, descr, round.digits=5, stats=c("mean", "sd", "mi
     ##                    All_items   Search_by_fields
     ## ------------- -------------- ------------------
     ##          Mean   330439.20000        78588.40000
+    ##        Median   264983.50000        78572.00000
     ##       Std.Dev   100614.20413         3849.31820
     ##           Min   237190.00000        71486.00000
     ##           Max   491882.00000        91023.00000
+    ## 
+    ## Group: Software = LDkit  
+    ## N: 30  
+    ## 
+    ##                 All_items   Search_by_fields
+    ## ------------- ----------- ------------------
+    ##          Mean   328.36167          326.38633
+    ##        Median   288.18000          303.30000
+    ##       Std.Dev    78.95476           88.84282
+    ##           Min   269.86000          240.12000
+    ##           Max   486.50000          496.74000
     ## 
     ## Group: Software = RDF4J-Beans  
     ## N: 30  
@@ -47,6 +60,7 @@ stby(dataset, dataset$Software, descr, round.digits=5, stats=c("mean", "sd", "mi
     ##                    All_items   Search_by_fields
     ## ------------- -------------- ------------------
     ##          Mean   130250.46667       122011.90000
+    ##        Median   107894.50000       103271.50000
     ##       Std.Dev    41574.46506        36393.75126
     ##           Min    94509.00000        95807.00000
     ##           Max   196460.00000       197449.00000
@@ -57,6 +71,7 @@ stby(dataset, dataset$Software, descr, round.digits=5, stats=c("mean", "sd", "mi
     ##                  All_items   Search_by_fields
     ## ------------- ------------ ------------------
     ##          Mean   1288.61333            7.91860
+    ##        Median   1282.00000            8.20150
     ##       Std.Dev     36.31465            0.98018
     ##           Min   1236.90000            5.42300
     ##           Max   1409.40000            8.95600
@@ -88,6 +103,14 @@ by(dataset$All_items, dataset$Software, shapiro.test)
     ## 
     ## data:  dd[x, ]
     ## W = 0.76975, p-value = 1.931e-05
+    ## 
+    ## ------------------------------------------------------------ 
+    ## dataset$Software: LDkit
+    ## 
+    ##  Shapiro-Wilk normality test
+    ## 
+    ## data:  dd[x, ]
+    ## W = 0.71509, p-value = 2.606e-06
     ## 
     ## ------------------------------------------------------------ 
     ## dataset$Software: RDF4J-Beans
@@ -125,6 +148,14 @@ by(dataset$Search_by_fields, dataset$Software, shapiro.test)
     ## 
     ## data:  dd[x, ]
     ## W = 0.92549, p-value = 0.03733
+    ## 
+    ## ------------------------------------------------------------ 
+    ## dataset$Software: LDkit
+    ## 
+    ##  Shapiro-Wilk normality test
+    ## 
+    ## data:  dd[x, ]
+    ## W = 0.80722, p-value = 8.902e-05
     ## 
     ## ------------------------------------------------------------ 
     ## dataset$Software: RDF4J-Beans
@@ -165,7 +196,7 @@ kruskal.test(All_items ~ Software, data = dataset)
     ##  Kruskal-Wallis rank sum test
     ## 
     ## data:  All_items by Software
-    ## Kruskal-Wallis chi-squared = 111.57, df = 3, p-value < 2.2e-16
+    ## Kruskal-Wallis chi-squared = 135.96, df = 4, p-value < 2.2e-16
 
 Results for “Search by fields” method:
 
@@ -177,7 +208,7 @@ kruskal.test(Search_by_fields ~ Software, data = dataset)
     ##  Kruskal-Wallis rank sum test
     ## 
     ## data:  Search_by_fields by Software
-    ## Kruskal-Wallis chi-squared = 111.57, df = 3, p-value < 2.2e-16
+    ## Kruskal-Wallis chi-squared = 143.05, df = 4, p-value < 2.2e-16
 
 In the light of these results we can see that in both cases the null
 hypothesis is rejected and the significance of this difference can be
@@ -204,20 +235,30 @@ dunnTest(All_items ~ Software, data = dataset, method = "bh")
 
     ##   p-values adjusted with the Benjamini-Hochberg method.
 
-    ##             Comparison          Z      P.unadj        P.adj
-    ## 1       DMAOG - LDflex -10.020657 1.236777e-23 7.420663e-23
-    ## 2  DMAOG - RDF4J-Beans  -6.680438 2.382289e-11 4.764578e-11
-    ## 3 LDflex - RDF4J-Beans   3.340219 8.371232e-04 8.371232e-04
-    ## 4       DMAOG - Walder  -3.340219 8.371232e-04 1.004548e-03
-    ## 5      LDflex - Walder   6.680438 2.382289e-11 7.146866e-11
-    ## 6 RDF4J-Beans - Walder   3.340219 8.371232e-04 1.255685e-03
+    ##              Comparison          Z      P.unadj        P.adj
+    ## 1        DMAOG - LDflex -9.4881207 2.352369e-21 2.352369e-20
+    ## 2         DMAOG - LDkit -0.2555523 7.982966e-01 7.982966e-01
+    ## 3        LDflex - LDkit  9.2325684 2.642189e-20 1.321094e-19
+    ## 4   DMAOG - RDF4J-Beans -6.8137365 9.509581e-12 3.169860e-11
+    ## 5  LDflex - RDF4J-Beans  2.6743842 7.486664e-03 8.318515e-03
+    ## 6   LDkit - RDF4J-Beans -6.5581843 5.446689e-11 1.361672e-10
+    ## 7        DMAOG - Walder -4.1393524 3.482877e-05 5.804794e-05
+    ## 8       LDflex - Walder  5.3487683 8.855482e-08 1.771096e-07
+    ## 9        LDkit - Walder -3.8838001 1.028365e-04 1.469092e-04
+    ## 10 RDF4J-Beans - Walder  2.6743842 7.486664e-03 9.358330e-03
 
 In the case of the “All items” method we can see that there are very
-significant differences (p \< 0.001) between DMAOG and LDflex, between
-DMAOG and RDF4J-Beans, between LDflex and RDF4J-Beans, and between
-LDflex and Walder. Also there are significant differences (p \< 0.05)
-between RDF4J-Beans and Walder and between DMAOG and Walder. In addition
-we can calculate the effect size to see how strong is the seen relation:
+significant differences (p \< 0.001) between: \* DMAOG and LDflex \*
+DMAOG and RDF4J-Beans \* DMAOG and Walder \* LDlfex and LDkit \* LDkit
+and RDF4J-Beans \* LDKit and Walder \* LDflex and Walder There are also
+significant differences (p \< 0.05) between: \* RDF4J-Beans and Walder
+\* LDflex and RDF4J-Beans
+
+Interestingly, there are no significant differences between DMAOG and
+LDkit.
+
+In addition we can calculate the effect size to see how strong is the
+seen relation:
 
     ## Registered S3 methods overwritten by 'car':
     ##   method       from
@@ -237,23 +278,28 @@ d_all_items$r <- d_all_items$statistic / sqrt(d_all_items$n1+d_all_items$n2)
 d_all_items[, c(1,2,3,10)]
 ```
 
-    ## # A tibble: 6 × 4
-    ##   .y.       group1      group2           r
-    ##   <chr>     <chr>       <chr>        <dbl>
-    ## 1 All_items DMAOG       LDflex       1.29 
-    ## 2 All_items DMAOG       RDF4J-Beans  0.862
-    ## 3 All_items DMAOG       Walder       0.431
-    ## 4 All_items LDflex      RDF4J-Beans -0.431
-    ## 5 All_items LDflex      Walder      -0.862
-    ## 6 All_items RDF4J-Beans Walder      -0.431
+    ## # A tibble: 10 × 4
+    ##    .y.       group1      group2            r
+    ##    <chr>     <chr>       <chr>         <dbl>
+    ##  1 All_items DMAOG       LDflex       1.22  
+    ##  2 All_items DMAOG       LDkit        0.0330
+    ##  3 All_items DMAOG       RDF4J-Beans  0.880 
+    ##  4 All_items DMAOG       Walder       0.534 
+    ##  5 All_items LDflex      LDkit       -1.19  
+    ##  6 All_items LDflex      RDF4J-Beans -0.345 
+    ##  7 All_items LDflex      Walder      -0.691 
+    ##  8 All_items LDkit       RDF4J-Beans  0.847 
+    ##  9 All_items LDkit       Walder       0.501 
+    ## 10 All_items RDF4J-Beans Walder      -0.345
 
-As we can see from the previous results the effect size is large as per
-Cohen suggested values of effect size for r. Therefore, we can ensure
-that DMAOG is faster than LDflex, and RDF4J-Beans, and Walder is faster
-than LDflex. However, while we can ensure that DMAOG is faster than
-Walder, Walder is faster than RDF4J-Beans and RDF4J-Beans is faster than
-LDflex these relations have a medium effect size so the difference is
-less strong than in the other cases.
+As we can see from the previous results the effect size is large (r \>
+0.5) as per Cohen suggested values of effect size for r. Therefore, we
+can ensure that: \* DMAOG is faster than LDflex, RDF4J-Beans and Walder
+\* LDkit is faster than LDflex and RDF4J-Beans and Walder
+
+However, we cannot ensure with the same certainty, due to medium (r \<=
+0.5 and r \> 0.1) or small effect size (r \<= 0.1), that: \* Walder is
+faster than RDF4J-Beans \* RDF4J-Beans is faster than LDflex
 
 Results for “Search by fields” method:
 
@@ -267,19 +313,27 @@ dunnTest(Search_by_fields ~ Software, data = dataset, method = "bh")
 
     ##   p-values adjusted with the Benjamini-Hochberg method.
 
-    ##             Comparison         Z      P.unadj        P.adj
-    ## 1       DMAOG - LDflex -3.340219 8.371232e-04 8.371232e-04
-    ## 2  DMAOG - RDF4J-Beans -6.680438 2.382289e-11 4.764578e-11
-    ## 3 LDflex - RDF4J-Beans -3.340219 8.371232e-04 1.004548e-03
-    ## 4       DMAOG - Walder  3.340219 8.371232e-04 1.255685e-03
-    ## 5      LDflex - Walder  6.680438 2.382289e-11 7.146866e-11
-    ## 6 RDF4J-Beans - Walder 10.020657 1.236777e-23 7.420663e-23
+    ##              Comparison         Z      P.unadj        P.adj
+    ## 1        DMAOG - LDflex -5.348768 8.855482e-08 1.475914e-07
+    ## 2         DMAOG - LDkit -2.674384 7.486664e-03 7.486664e-03
+    ## 3        LDflex - LDkit  2.674384 7.486664e-03 8.318515e-03
+    ## 4   DMAOG - RDF4J-Beans -8.023152 1.030653e-15 3.435510e-15
+    ## 5  LDflex - RDF4J-Beans -2.674384 7.486664e-03 9.358330e-03
+    ## 6   LDkit - RDF4J-Beans -5.348768 8.855482e-08 1.771096e-07
+    ## 7        DMAOG - Walder  2.674384 7.486664e-03 1.069523e-02
+    ## 8       LDflex - Walder  8.023152 1.030653e-15 5.153265e-15
+    ## 9        LDkit - Walder  5.348768 8.855482e-08 2.213871e-07
+    ## 10 RDF4J-Beans - Walder 10.697537 1.045199e-26 1.045199e-25
 
-In this case there are very significant differences between DMAOG and
-RDF4J-Beans, RDF4J-Beans and Walder, between LDflex and Walder, and
-between DMAOG and LDflex. There are significant differences between
-LDflex and RDF4J-Beans and between DMAOG and Walder. Calculating the
-effect size:
+In this case there are very significant differences (p \< 0.001)
+between: \* DMAOG and LDflex \* DMAOG and RDF4J-Beans \* LDkit and
+RDF4J-Beans \* RDF4J-Beans and Walder \* LDflex and Walder \* LDkit and
+Walder
+
+There are significant differences (p \< 0.05) between: \* DMAOG and
+LDkit \* LDflex and LDkit \* LDflex and RDF4J-Beans \* DMAOG and Walder
+
+Calculating the effect size:
 
 ``` r
 d_search_by_fields <- dunn_test(Search_by_fields ~ Software, data = dataset, p.adjust.method = "BH")
@@ -287,30 +341,38 @@ d_search_by_fields$r <- d_search_by_fields$statistic / sqrt(d_search_by_fields$n
 d_search_by_fields[, c(1,2,3,10)]
 ```
 
-    ## # A tibble: 6 × 4
-    ##   .y.              group1      group2           r
-    ##   <chr>            <chr>       <chr>        <dbl>
-    ## 1 Search_by_fields DMAOG       LDflex       0.431
-    ## 2 Search_by_fields DMAOG       RDF4J-Beans  0.862
-    ## 3 Search_by_fields DMAOG       Walder      -0.431
-    ## 4 Search_by_fields LDflex      RDF4J-Beans  0.431
-    ## 5 Search_by_fields LDflex      Walder      -0.862
-    ## 6 Search_by_fields RDF4J-Beans Walder      -1.29
+    ## # A tibble: 10 × 4
+    ##    .y.              group1      group2           r
+    ##    <chr>            <chr>       <chr>        <dbl>
+    ##  1 Search_by_fields DMAOG       LDflex       0.691
+    ##  2 Search_by_fields DMAOG       LDkit        0.345
+    ##  3 Search_by_fields DMAOG       RDF4J-Beans  1.04 
+    ##  4 Search_by_fields DMAOG       Walder      -0.345
+    ##  5 Search_by_fields LDflex      LDkit       -0.345
+    ##  6 Search_by_fields LDflex      RDF4J-Beans  0.345
+    ##  7 Search_by_fields LDflex      Walder      -1.04 
+    ##  8 Search_by_fields LDkit       RDF4J-Beans  0.691
+    ##  9 Search_by_fields LDkit       Walder      -0.691
+    ## 10 Search_by_fields RDF4J-Beans Walder      -1.38
 
 We can see that pairing the previously obtained significance values
-there are large effect sizes between DMAOG and RDF4J-Beans (DMAOG is
-faster), between RDF4J-Beans and Walder (Walder is faster) and between
-LDflex and Walder (Walder is faster). We see medium size effects between
-DMAOG and LDflex (being DMAOG faster) between LDflex and RDF4J-Beans
-(being LDflex faster), and between DMAOG and Walder (being in this case
-Walder faster).
+there are large effect sizes (r \> 0.5) between: \* DMAOG and LDflex
+(being DMAOG faster) \* DMAOG and RDF4J-Beans (DMAOG is faster) \*
+RDF4J-Beans and Walder (Walder is faster) \* LDflex and Walder (Walder
+is faster) \* LDkit and RDF4J-Beans (LDkit is faster) \* LDkit and
+Walder (Walder is faster)
+
+We see medium size effects (r \<= 0.5 and r \> 0.1) between: \* LDflex
+and RDF4J-Beans (being LDflex faster) \* DMAOG and Walder (being in this
+case Walder faster). \* DMAOG and LDkit (DMAOG is faster) \* LDflex and
+LDkit (LDkit is faster)
 
 So we can corroborate that the previously observed differences and
 performance classification are statistically valid, so we can classify
 their performance depending on the used method:
 
-All items: DMAOG, Walder, RDF4J-Beans, LDflex Search by fields: Walder,
-DMAOG, LDflex and RDF4J-Beans
+All items: DMAOG/LDkit, Walder, RDF4J-Beans, LDflex Search by fields:
+Walder, DMAOG, LDkit, LDflex and RDF4J-Beans
 
 # Visualising the differences
 
@@ -349,16 +411,20 @@ boxplot(
 
 ![](analysisInR_files/figure-markdown_github/unnamed-chunk-13-1.png)
 
-DMAOG and Walder:
+DMAOG, Walder and LDkit:
 
 ``` r
 boxplot(
   filter(dataset, Software == "DMAOG")$All_items, 
   filter(dataset, Software == "Walder")$All_items, 
-  names=c("DMAOG - All items", "Walder - All items"),
+  filter(dataset, Software == "LDkit")$All_items, 
+  names=c("DMAOG - All items", "Walder - All items", "LDkit - All items"),
   notch=TRUE,
-  col=c("red", "purple"))
+  col=c("red", "purple", "blue"))
 ```
+
+    ## Warning in (function (z, notch = FALSE, width = NULL, varwidth = FALSE, : some
+    ## notches went outside hinges ('box'): maybe set notch=FALSE
 
 ![](analysisInR_files/figure-markdown_github/unnamed-chunk-14-1.png)
 
@@ -372,3 +438,23 @@ boxplot(
 ```
 
 ![](analysisInR_files/figure-markdown_github/unnamed-chunk-15-1.png)
+
+It is also interesting to plot the differences between DMAOG and LDkit
+in the “All items” method as just analysing the mean can deliver to
+erroneous conclusions. As we can see in the plot both distributions
+notches overlap which suggest that the are no significant differences
+between both distributions.
+
+``` r
+boxplot(
+  filter(dataset, Software == "DMAOG")$All_items, 
+  filter(dataset, Software == "LDkit")$All_items, 
+  names=c("DMAOG - All items", "LDkit - All items"),
+  notch=TRUE,
+  col=c("red", "blue"))
+```
+
+    ## Warning in (function (z, notch = FALSE, width = NULL, varwidth = FALSE, : some
+    ## notches went outside hinges ('box'): maybe set notch=FALSE
+
+![](analysisInR_files/figure-markdown_github/unnamed-chunk-16-1.png)
