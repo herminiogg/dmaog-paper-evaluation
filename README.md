@@ -160,7 +160,7 @@ And for evaluating getting the films by name you can use the command below:
 $ node mainSearchFilm.js
 ```
 
-### LDflex
+### LDkit
 As in the case of LDflex and Walder the evalution of getting all the films and getting the films by name are separated. Therefore for running the evaluation of getting all the films you should use this command that compiles the TypeScript code and then run the resulting JavaScript code:
 
 ```
