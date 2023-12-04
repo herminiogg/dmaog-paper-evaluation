@@ -100,6 +100,15 @@ The included example can be launched firstly by compiling it and then running th
 $ tsc main.ts && node main.js
 ```
 
+### LDO
+To create a project using LDO it is necessary to install the dependencies and create the folder strcuture as indicated in the [LDO repository](https://github.com/o-development/ldo/tree/main/packages/ldo).
+
+The example of usage already includes the needed ShEx schema alongside the created TypeScript sources obtained after the execution of the companion CLI tool. To compile and run the TypeScript source code you can run the following one-line command:
+
+```
+$ tsc main.ts && node main.js
+```
+
 ## Performance evaluation
 Under the folder PerformanceTest you can find similar projects to those explained in usage example but designed to measure the performance of each solution: for getting all the films and for getting fields based on their name.
 
@@ -162,6 +171,20 @@ $ node mainSearchFilm.js
 
 ### LDkit
 As in the case of LDflex and Walder the evalution of getting all the films and getting the films by name are separated. Therefore for running the evaluation of getting all the films you should use this command that compiles the TypeScript code and then run the resulting JavaScript code:
+
+```
+$ tsc main.ts && node main.js
+```
+
+And for evaluating getting the films by name you can use the command below:
+
+```
+$ tsc mainSearchFilm.ts && node mainSearchFilm.js
+```
+
+
+### LDkit
+As in the case of LDflex, Walder and LDkit the evaluation of getting all the films and getting the films by name are separated. Therefore for running the evaluation of getting all the films you should use this command that compiles the TypeScript code and then run the resulting JavaScript code:
 
 ```
 $ tsc main.ts && node main.js

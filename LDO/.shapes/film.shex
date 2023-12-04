@@ -1,0 +1,15 @@
+PREFIX : <http://example.com/>
+PREFIX dbr: <http://dbpedia.org/resource/>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+:Film {
+	a [ schema:Movie ] ;
+	schema:name xsd:string  ;
+	:year IRI  ;
+	schema:countryOfOrigin IRI  ;
+	schema:director IRI  ;
+	:screenwritter IRI + ;
+	schema:musicBy IRI  ;
+	:cinematographer IRI  ;
+}
