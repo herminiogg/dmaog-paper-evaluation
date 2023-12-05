@@ -1,7 +1,7 @@
 ---
 title: "DMAOG performance evaluation"
 author: "Herminio García-González"
-date: "2023-11-16"
+date: "2023-12-05"
 output: 
   html_document: default
   md_document:
@@ -80,15 +80,20 @@ In the case of the "All items" method we can see that there are very significant
 * DMAOG and LDflex
 * DMAOG and RDF4J-Beans
 * DMAOG and Walder
-* LDlfex and LDkit
+* LDflex and LDkit
 * LDkit and RDF4J-Beans
-* LDKit and Walder
 * LDflex and Walder
+* RDF4J-Beans and Walder
+* DMAOG and LDO
+* LDflex and LDO
+* LDkit and LDO
 
 There are also significant differences (p < 0.05) between: 
 
-* RDF4J-Beans and Walder
 * LDflex and RDF4J-Beans
+* LDKit and Walder
+* LDO and RDF4J-Beans
+* LDO and Walder
 
 Interestingly, there are no significant differences between DMAOG and LDkit. 
 
@@ -106,13 +111,16 @@ d_all_items[, c(1,2,3,10)]
 
 As we can see from the previous results the effect size is large (r > 0.5) as per Cohen suggested values of effect size for r. Therefore, we can ensure that:
 
-* DMAOG is faster than LDflex, RDF4J-Beans and Walder
-* LDkit is faster than LDflex and RDF4J-Beans and Walder
+* DMAOG is faster than LDflex, RDF4J-Beans and LDO
+* LDkit is faster than LDflex and RDF4J-Beans and LDO
+* LDO is faster than LDflex
 
 However, we cannot ensure with the same certainty, due to medium (r <= 0.5 and r > 0.3) or small effect size (r <= 0.3), that: 
 
-* Walder is faster than RDF4J-Beans 
+* Walder is faster than RDF4J-Beans and LDO
 * RDF4J-Beans is faster than LDflex
+* DMAOG and LDKit are faster than Walder
+* LDO is faster than RDF4J-Beans
 
 Results for "Search by fields" method:
 
@@ -128,13 +136,18 @@ In this case there are very significant differences (p < 0.001) between:
 * RDF4J-Beans and Walder
 * LDflex and Walder
 * LDkit and Walder
+* LDflex and LDkit
+* LDO and Walder
+* LDO and RDF4J-Beans
+* DMAOG and LDO
   
 There are significant differences (p < 0.05) between:
 
 * DMAOG and LDkit
-* LDflex and LDkit
+* LDkit and LDO
 * LDflex and RDF4J-Beans
 * DMAOG and Walder
+* LDflex and LDO
   
 Calculating the effect size:
 
@@ -152,18 +165,24 @@ We can see that pairing the previously obtained significance values there are la
 * LDflex and Walder (Walder is faster)
 * LDkit and RDF4J-Beans (LDkit is faster)
 * LDkit and Walder (Walder is faster)
+* LDflex and LDkit (LDkit is faster)
+* DMAOG and LDO (DMAOG is faster)
+* LDO and RDF4J-Beans (LDO is faster)
+* LDO and Walder (walder is faster)
   
-We see medium size effects (r <= 0.5 and r > 0.3) between:
+We see low effect size effects (r <= 0.3) between:
 
 * LDflex and RDF4J-Beans (being LDflex faster)
 * DMAOG and Walder (being in this case Walder faster).
 * DMAOG and LDkit (DMAOG is faster)
-* LDflex and LDkit (LDkit is faster)
+* LDflex and LDO (LDO is faster)
+* LDkit and LDO (LDkit is faster)
+
 
 So we can corroborate that the previously observed differences and performance classification are statistically valid, so we can classify their performance depending on the used method:
 
-All items: DMAOG/LDkit, Walder, RDF4J-Beans, LDflex
-Search by fields: Walder, DMAOG, LDkit, LDflex and RDF4J-Beans
+All items: DMAOG/LDkit > Walder > LDO > RDF4J-Beans > LDflex
+Search by fields: Walder > DMAOG > LDkit > LDO > LDflex > RDF4J-Beans
 
 # Visualising the differences
 
