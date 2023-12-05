@@ -183,7 +183,7 @@ $ tsc mainSearchFilm.ts && node mainSearchFilm.js
 ```
 
 
-### LDkit
+### LDO
 As in the case of LDflex, Walder and LDkit the evaluation of getting all the films and getting the films by name are separated. Therefore for running the evaluation of getting all the films you should use this command that compiles the TypeScript code and then run the resulting JavaScript code:
 
 ```
