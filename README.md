@@ -1,5 +1,5 @@
 # DMAOG Paper examples and performance measurement scripts
-In this repository you can find usage examples for the tools compared in the paper: DMAOG, LDflex, RDF4J-Beans, ShEx-Lite and Walder alongside a performance evaluation suite designed to compare four of these tools (DMAOG, LDflex, RDF4J-Beans, and Walder). The process of configuration and running of these examples is described in the following sections.
+In this repository you can find usage examples for the tools compared in the paper: DMAOG, LDflex, LDkit, LDO, RDF4J-Beans, ShEx-Lite and Walder alongside a performance evaluation suite designed to compare six of these tools (DMAOG, LDflex, LDO, LDkit, RDF4J-Beans and Walder). The process of configuration and running of these examples is described in the following sections.
 
 > If you want to see the statistical analysis of the data obtained using these examples you can visit the page [Statistical Analysis](StatisticalAnalysis).
 
