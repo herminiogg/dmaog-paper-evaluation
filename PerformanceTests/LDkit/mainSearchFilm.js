@@ -59,11 +59,11 @@ var FilmSchema = {
     musicBy: namespaces_1.schema.musicBy,
     name: namespaces_1.schema.name
 };
-var context = {
+var options = {
     sources: ["http://localhost:3030/filmsBig/sparql"],
     language: "en", // Preferred language
 };
-var Movies = (0, ldkit_2.createLens)(FilmSchema, context);
+var Movies = (0, ldkit_2.createLens)(FilmSchema, options);
 (function () { return __awaiter(void 0, void 0, void 0, function () {
     var i, millis1, j, millis2;
     return __generator(this, function (_a) {
@@ -77,7 +77,7 @@ var Movies = (0, ldkit_2.createLens)(FilmSchema, context);
                 j = 0;
                 _a.label = 2;
             case 2:
-                if (!(j < 100)) return [3 /*break*/, 5];
+                if (!(j < 1000)) return [3 /*break*/, 5];
                 return [4 /*yield*/, getFilmByName('Carmen')];
             case 3:
                 _a.sent();
@@ -101,14 +101,18 @@ function getFilmByName(name) {
         var films, _i, films_1, film;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, Movies.find()];
+                case 0: return [4 /*yield*/, Movies.find({
+                        where: {
+                            name: {
+                                $equals: name
+                            }
+                        }
+                    })];
                 case 1:
                     films = _a.sent();
                     for (_i = 0, films_1 = films; _i < films_1.length; _i++) {
                         film = films_1[_i];
-                        if (film.name === name) {
-                            new Film(film.$id, film.name, film.year, film.countryOfOrigin, film.director, film.musicBy, film.screenwritter);
-                        }
+                        new Film(film.$id, film.name, film.year, film.countryOfOrigin, film.director, film.musicBy, film.screenwritter);
                     }
                     return [2 /*return*/];
             }

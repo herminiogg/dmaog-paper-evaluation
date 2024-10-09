@@ -1,7 +1,7 @@
 ---
 title: "DMAOG performance evaluation"
 author: "Herminio García-González"
-date: "2023-12-05"
+date: "2024-10-09"
 output: 
   html_document: default
   md_document:
@@ -11,6 +11,7 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(summarytools)
+library(ggplot2)
 library(FSA)
 ```
 
@@ -19,7 +20,7 @@ library(FSA)
 Firstly we have to load the dataset from Github from the available project repository:
 
 ```{r}
-dataset <- read.csv("https://raw.githubusercontent.com/herminiogg/dmaog-paper-evaluation/master/StatisticalAnalysis/dmaogEvaluationDataset.csv")[, 2:4]
+dataset <- read.csv("C:\\Users\\Herminio\\Desktop\\ExamplesDMAOGPaper\\StatisticalAnalysis\\dmaogEvaluationDataset.csv")[, 2:4]
 ```
 
 ## Descriptive statistics
@@ -65,7 +66,7 @@ kruskal.test(Search_by_fields ~ Software, data = dataset)
 In the light of these results we can see that in both cases the null hypothesis is rejected and the significance of this difference can be classified as statistically highly significant with the significance level  p < 0.001.
 
 ## Testing differences between groups
-The Kruskal-Wallis tests tells us that there are differences between the four given distributions, however with it we cannot exactly know between which groups are those differences. For this purpouse we need to run a post hoc analysis. In this case we will use the Dunn's Test using the Benjamini-Hochberg procedure. 
+The Kruskal-Wallis tests tells us that there are differences between the four given distributions, however with it we cannot exactly know between which groups are those differences. For this purpose we need to run a post hoc analysis. In this case we will use the Dunn's Test using the Benjamini-Hochberg procedure. 
 
 Results for "All items" method:
 
@@ -79,7 +80,6 @@ In the case of the "All items" method we can see that there are very significant
 
 * DMAOG and LDflex
 * DMAOG and RDF4J-Beans
-* DMAOG and Walder
 * LDflex and LDkit
 * LDkit and RDF4J-Beans
 * LDflex and Walder
@@ -87,13 +87,15 @@ In the case of the "All items" method we can see that there are very significant
 * DMAOG and LDO
 * LDflex and LDO
 * LDkit and LDO
+* LDKit and Walder
 
 There are also significant differences (p < 0.05) between: 
 
 * LDflex and RDF4J-Beans
-* LDKit and Walder
 * LDO and RDF4J-Beans
 * LDO and Walder
+* DMAOG and Walder
+* DMAOG and LDKit
 
 Interestingly, there are no significant differences between DMAOG and LDkit. 
 
@@ -112,15 +114,19 @@ d_all_items[, c(1,2,3,10)]
 As we can see from the previous results the effect size is large (r > 0.5) as per Cohen suggested values of effect size for r. Therefore, we can ensure that:
 
 * DMAOG is faster than LDflex, RDF4J-Beans and LDO
-* LDkit is faster than LDflex and RDF4J-Beans and LDO
+* LDkit is faster than LDflex and RDF4J-Beans, LDO and Walder
 * LDO is faster than LDflex
+* Walder is faster than RDF4J-Beans
+* LDflex is faster than Walder
 
 However, we cannot ensure with the same certainty, due to medium (r <= 0.5 and r > 0.3) or small effect size (r <= 0.3), that: 
 
-* Walder is faster than RDF4J-Beans and LDO
+* Walder is faster than LDO
 * RDF4J-Beans is faster than LDflex
-* DMAOG and LDKit are faster than Walder
+* DMAOG is faster than Walder
 * LDO is faster than RDF4J-Beans
+* LDkit is faster than DMAOG
+
 
 Results for "Search by fields" method:
 
@@ -135,19 +141,22 @@ In this case there are very significant differences (p < 0.001) between:
 * LDkit and RDF4J-Beans
 * RDF4J-Beans and Walder
 * LDflex and Walder
-* LDkit and Walder
 * LDflex and LDkit
 * LDO and Walder
 * LDO and RDF4J-Beans
-* DMAOG and LDO
+* DMAOG and LDkit
+* LDkit and LDO
   
 There are significant differences (p < 0.05) between:
 
-* DMAOG and LDkit
-* LDkit and LDO
 * LDflex and RDF4J-Beans
 * DMAOG and Walder
 * LDflex and LDO
+* DMAOG and LDO
+
+There are no significant differences:
+
+* LDkit and Walder
   
 Calculating the effect size:
 
@@ -164,77 +173,46 @@ We can see that pairing the previously obtained significance values there are la
 * RDF4J-Beans and Walder (Walder is faster)
 * LDflex and Walder (Walder is faster)
 * LDkit and RDF4J-Beans (LDkit is faster)
-* LDkit and Walder (Walder is faster)
 * LDflex and LDkit (LDkit is faster)
-* DMAOG and LDO (DMAOG is faster)
 * LDO and RDF4J-Beans (LDO is faster)
 * LDO and Walder (walder is faster)
+* DMAOG and LDkit (LDkit is faster)
+* LDkit and LDO (LDkit is faster)
   
-We see low effect size effects (r <= 0.3) between:
+We see low or medium effect size effects (r <= 0.5) between:
 
 * LDflex and RDF4J-Beans (being LDflex faster)
 * DMAOG and Walder (being in this case Walder faster).
-* DMAOG and LDkit (DMAOG is faster)
 * LDflex and LDO (LDO is faster)
-* LDkit and LDO (LDkit is faster)
+* DMAOG and LDO (DMAOG is faster)
 
 
 So we can corroborate that the previously observed differences and performance classification are statistically valid, so we can classify their performance depending on the used method:
 
-All items: DMAOG/LDkit > Walder > LDO > RDF4J-Beans > LDflex
-Search by fields: Walder > DMAOG > LDkit > LDO > LDflex > RDF4J-Beans
+All items: LDkit > DMAOG > Walder > LDO > RDF4J-Beans > LDflex
+Search by fields: LDkit/Walder > DMAOG > LDO > LDflex > RDF4J-Beans
 
 # Visualising the differences
+We can represent these differences graphically by means of a violin plot which will help the interpretation of these results. However, as the values can vary greatly among the different tools it is necessary to transform the coordinates so that the results can be interpreted more easily.
 
-We then can visualise these differences in a box plot where the differences can be become more evident. For that we are going to analyse the tools that interchange their position in best performance between the two tested methods:
-
-RDF4J-Beans and LDflex:
+Violin plot representation for the All items method where the y axis has been transformed based on a log10 scale:
 ```{r}
-boxplot(
-  filter(dataset, Software == "RDF4J-Beans")$All_items, 
-  filter(dataset, Software == "LDflex")$All_items, 
-  names=c("RDF4J-Beans - All items", "LDflex - All items"),
-  notch=TRUE,
-  col=c("yellow", "orange"))
+dataset %>%
+    ggplot(aes(fill=Software, y=All_items, x=Software)) +
+        geom_violin(trim=FALSE, scale="width") + 
+        coord_trans(y="log10") +
+        theme_minimal() + 
+        ylab("Elapsed time (ms)") +
+        theme(legend.position="right", text = element_text(size=15))
 ```
 
+Violin plot representation for the Search by fields method where the y axis has been transformed based on a log10 scale:
 ```{r}
-boxplot(
-  filter(dataset, Software == "RDF4J-Beans")$Search_by_fields, 
-  filter(dataset, Software == "LDflex")$Search_by_fields,
-  names=c("RDF4J-Beans - Search by field", "LDflex - Search by field"),
-  notch=TRUE,
-  col=c("yellow", "orange"))
-```
-
-
-DMAOG, Walder and LDkit:
-```{r}
-boxplot(
-  filter(dataset, Software == "DMAOG")$All_items, 
-  filter(dataset, Software == "Walder")$All_items, 
-  filter(dataset, Software == "LDkit")$All_items, 
-  names=c("DMAOG - All items", "Walder - All items", "LDkit - All items"),
-  notch=TRUE,
-  col=c("red", "purple", "blue"))
-```
-
-```{r}
-boxplot(
-  filter(dataset, Software == "DMAOG")$Search_by_fields, 
-  filter(dataset, Software == "Walder")$Search_by_fields,
-  names=c("DMAOG - Search by field", "Walder - Search by field"),
-  notch=TRUE,
-  col=c("red", "purple"))
-```
-
-It is also interesting to plot the differences between DMAOG and LDkit in the "All items" method as just analysing the mean can deliver to erroneous conclusions. As we can see in the plot both distributions notches overlap which suggest that the are no significant differences between both distributions.
-
-```{r}
-boxplot(
-  filter(dataset, Software == "DMAOG")$All_items, 
-  filter(dataset, Software == "LDkit")$All_items, 
-  names=c("DMAOG - All items", "LDkit - All items"),
-  notch=TRUE,
-  col=c("red", "blue"))
+dataset %>%
+    ggplot(aes(fill=Software, y=Search_by_fields, x=Software)) +
+        geom_violin(trim=FALSE, scale="width") + 
+        coord_trans(y="log10") +
+        theme_minimal() + 
+        ylab("Elapsed time (ms)") +
+        theme(legend.position="right", text = element_text(size=15))
 ```

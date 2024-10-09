@@ -59,11 +59,11 @@ var FilmSchema = {
     musicBy: namespaces_1.schema.musicBy,
     name: namespaces_1.schema.name
 };
-var context = {
+var options = {
     sources: ["http://localhost:3030/filmsBig/sparql"],
     language: "en", // Preferred language
 };
-var Movies = (0, ldkit_2.createLens)(FilmSchema, context);
+var Movies = (0, ldkit_2.createLens)(FilmSchema, options);
 (function () { return __awaiter(void 0, void 0, void 0, function () {
     var i, millis1, j, millis2;
     return __generator(this, function (_a) {

@@ -1,7 +1,6 @@
 import { schema, xsd } from "ldkit/namespaces";
 import { createNamespace } from "ldkit";
-import { type Context, createLens } from "ldkit";
-
+import { type Options, createLens } from "ldkit";
 const ex = createNamespace(
     {
       iri: "http://example.com/",
@@ -26,17 +25,17 @@ const FilmSchema = {
     name: schema.name
   } as const;
 
-const context: Context = {
+const options: Options = {
     sources: ["http://localhost:3030/filmsBig/sparql"], // SPARQL endpoint
     language: "en", // Preferred language
 };
 
-const Movies = createLens(FilmSchema, context);
+const Movies = createLens(FilmSchema, options);
 
 (async () => {
     for (let i = 0; i < 30; i++) {
         let millis1 = Date.now();
-        for (let j = 0; j < 100; j++) {
+        for (let j = 0; j < 1000; j++) {
             await getFilmByName('Carmen');
         }
         let millis2 = Date.now();
@@ -46,11 +45,15 @@ const Movies = createLens(FilmSchema, context);
 
 
 async function getFilmByName(name: string) {
-    const films = await Movies.find();
-    for (const film of films) {
-        if(film.name === name) {
-            new Film(film.$id, film.name, film.year, film.countryOfOrigin, film.director, film.musicBy, film.screenwritter);
+    const films = await Movies.find({
+        where: {
+          name: {
+            $equals: name
+          }
         }
+      });
+    for (const film of films) {
+        new Film(film.$id, film.name, film.year, film.countryOfOrigin, film.director, film.musicBy, film.screenwritter);
     }
 }
 

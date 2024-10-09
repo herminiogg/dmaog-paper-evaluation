@@ -56,11 +56,11 @@ var FilmSchema = {
     musicBy: namespaces_1.schema.musicBy,
     name: namespaces_1.schema.name
 };
-var context = {
+var options = {
     sources: ["http://localhost:3030/films/sparql"],
     language: "en", // Preferred language
 };
-var Movies = (0, ldkit_2.createLens)(FilmSchema, context);
+var Movies = (0, ldkit_2.createLens)(FilmSchema, options);
 console.log("All films");
 fetchFilms().then(function () {
     console.log("\nOnly the films with the title Dunkirk");
@@ -88,13 +88,18 @@ function searchFilmByName(name) {
         var films, _i, films_2, film;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, Movies.find()];
+                case 0: return [4 /*yield*/, Movies.find({
+                        where: {
+                            name: {
+                                $equals: name
+                            }
+                        }
+                    })];
                 case 1:
                     films = _a.sent();
                     for (_i = 0, films_2 = films; _i < films_2.length; _i++) {
                         film = films_2[_i];
-                        if (film.name === name)
-                            showFilm(film);
+                        showFilm(film);
                     }
                     return [2 /*return*/];
             }

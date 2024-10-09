@@ -1,6 +1,6 @@
 import { schema, xsd } from "ldkit/namespaces";
 import { createNamespace } from "ldkit";
-import { type Context, createLens } from "ldkit";
+import { type Options, createLens } from "ldkit";
 
 const ex = createNamespace(
     {
@@ -26,12 +26,12 @@ const FilmSchema = {
     name: schema.name
   } as const;
 
-const context: Context = {
+const options: Options = {
     sources: ["http://localhost:3030/filmsBig/sparql"], // SPARQL endpoint
     language: "en", // Preferred language
 };
 
-const Movies = createLens(FilmSchema, context);
+const Movies = createLens(FilmSchema, options);
 
 (async () => {
     for (let i = 0; i < 30; i++) {
